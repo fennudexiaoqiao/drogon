@@ -126,6 +126,7 @@ target_include_directories(
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/nosql_lib/redis/inc>
     $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/exports>
+    $<BUILD_INTERFACE:${3RDPARTY_DEP_CACHE_INCLUDE}>
     $<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR}>)
 
 if (WIN32)
@@ -134,7 +135,7 @@ if (WIN32)
         PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/third_party/mman-win32>)
 endif (WIN32)
 
-if(USE_SUBMODULE)
+if(USE_SUBMODULE_TRANTOR)
 add_subdirectory(trantor)
 target_link_libraries(${PROJECT_NAME} PUBLIC trantor)
 else()
