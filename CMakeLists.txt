@@ -152,6 +152,8 @@ elseif (WIN32)
 endif ()
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules/)
+list(APPEND CMAKE_PREFIX_PATH  "${3RDPARTY_DEP_CACHE}")
+
 
 find_package(Filesystem COMPONENTS Final)
 if(CXX_FILESYSTEM_HAVE_FS)
@@ -188,8 +190,9 @@ endif()
 
 
 # jsoncpp
-find_package(Jsoncpp REQUIRED)
-target_link_libraries(${PROJECT_NAME} PUBLIC Jsoncpp_lib)
+
+find_package(jsoncpp REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC MyJsonCpp::MyJsonCpp)
 list(APPEND INCLUDE_DIRS_FOR_DYNAMIC_VIEW ${JSONCPP_INCLUDE_DIRS})
 
 # yamlcpp
@@ -504,8 +507,8 @@ if (BUILD_TESTING)
     add_subdirectory(nosql_lib/redis/tests)
 endif (BUILD_TESTING)
 
-find_package(ZLIB REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB)
+find_package(MyZlib REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE MyZlib::zlibstatic)
 
 execute_process(COMMAND "git" rev-parse HEAD
     WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
